@@ -11,24 +11,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     $num = $_POST['num'];
     $_index = findMin($arr,$num);
 
-
 }
 
 
 function findMin($arr,$num){
     $index = NULL;
     $min = $arr[0];
-     for ($j = 1 ; $j < count($arr);$j++){
-         if ($arr[$j] < $min ){
-             if ($arr[$j] < $num){
-                 $index = $j;
-             }else{
-                 $index = "Khong co so nao nho hon so truyen vao";
-             }
-         }
-     }
-
-     return $index;
+    for ($j = 1 ; $j < count($arr);$j++){
+        if ($arr[$j] < $min ){
+            if ($arr[$j] < $num) {
+                $min = $arr[$j];
+                $index = $j;
+            }
+        }
+    }
+    if ($min > $num){
+        return $index = "Khong co so nao nho hon so truyen vao";
+    }
+    return $index;
 
 }
 ?>
@@ -50,8 +50,10 @@ function findMin($arr,$num){
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <form action="" method="POST" role="form">
-                <legend>Search</legend>
-
+                <legend>Day so</legend>
+                <?php foreach ($arr as $item){
+                    echo $item.",";
+                };?>
                 <div class="form-group">
                     <label for=""></label>
                     <input type="nubmer" class="form-control" name="num" id="" placeholder="Input random number">
@@ -59,16 +61,17 @@ function findMin($arr,$num){
                 <button type="submit" class="btn btn-primary">Find</button>
             </form>
             <?php
-                if ($_index){
-                    ?>
-                    <div class="alert alert-success">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Index number min is :<?= $_index;?>
-                     </div>
-                    <?php
-                }
+            if ($_index && $_REQUEST){
+                ?>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Index number min is :<?= $_index;?>
+                </div>
+                <?php
+            }
             ;?>
         </div>
+
     </div>
 </div>
 <!-- jQuery -->
